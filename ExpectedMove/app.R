@@ -1,34 +1,58 @@
+pacman::p_load(shiny, shinythemes)
+
 library(shiny)
+library(shinythemes)
 
 source('./proximity_chart_generator.r', local = T)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
+  
+  theme = shinytheme("paper"),
    
    # Application title
    titlePanel("Expected Moves"),
+  
+   tabsetPanel(
+     
+   tabPanel("Weekly Move", fluid = TRUE,
    
    # Sidebar with a slider input for number of bins 
    sidebarLayout(
+      fluid = TRUE,
       sidebarPanel(
-         # sliderInput("bins",
-         #             "Number of bins:",
-         #             min = 1,
-         #             max = 50,
-         #             value = 30),
-         
-         textInput("start_date", "Start Date", "YYYY-MM-DD"),
-         textInput("end_date", "End Date", "YYYY-MM-DD")
       ),
-      
-      
       
       # Show a plot of the generated distribution
       mainPanel(
-         plotOutput("distPlot"),
-         textOutput("breaches"),
-         textOutput("temporary_breaches")
       )
+    )
+   ),
+   tabPanel("Breached Stats", fluid = TRUE,
+            sidebarLayout(
+              fluid = TRUE,
+              sidebarPanel(
+                textInput("start_date", "Start Date", "YYYY-MM-DD"),
+                textInput("end_date", "End Date", "YYYY-MM-DD")
+              ),
+              
+              # Show a plot of the generated distribution
+              mainPanel(
+                plotOutput("distPlot"),
+                fluidRow(
+                  column(8, offset = 3,
+                         textOutput("breaches")
+                  )
+                ),
+                br(),
+                fluidRow(
+                  column(8, offset = 3,
+                         textOutput("temporary_breaches")
+                  )
+                )
+              )
+            )
+   )
    )
 )
 
