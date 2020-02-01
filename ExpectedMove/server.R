@@ -25,5 +25,6 @@ server <- function(input, output) {
     paste("Never Breached: ", temp_breaches[1], "Temporarily Breached: ", temp_breaches[2])
   })
   
-  output$sd_message <- renderText({getMessage()})
+  output$sd_message <- renderText({getClosedSDMessage()})
+  output$breached_sd_message <- renderText({getBreachedSDExpectedMoveMessage()})
 }

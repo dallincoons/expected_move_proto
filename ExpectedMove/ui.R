@@ -8,12 +8,17 @@ ui <- fluidPage(
   tabsetPanel(
     
     tabPanel("Weekly Move", fluid = TRUE,
-             div(
-               span(textOutput('sd_message'), style="font-size:1.3em"), 
-               style = "margin-top:2em;"
-             ),
-             
-             plotOutput("expectedMove")
+       div(
+         span(textOutput('sd_message'), style="font-size:1.3em"), 
+         style = "margin-top:2em;"
+       ),
+       
+       div(
+         span(textOutput('breached_sd_message'), style="font-size:1.3em"), 
+         style = "margin-top:2em;"
+       ),
+       
+       plotOutput("expectedMove")
     ),
     tabPanel("Breached Stats", fluid = TRUE,
              sidebarLayout(

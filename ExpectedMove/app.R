@@ -5,6 +5,7 @@ library(shinythemes)
 
 source('./proximity_chart_generator.r', local = T)
 source('ui.R')
+source('server.R')
 
 shinyApp(ui = ui, server = server)
 
