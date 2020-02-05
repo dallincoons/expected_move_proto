@@ -1,3 +1,5 @@
+library(shinythemes, lubridate)
+
 ui <- fluidPage(
   
   theme = shinytheme("paper"),
@@ -17,6 +19,12 @@ ui <- fluidPage(
          span(textOutput('breached_sd_message'), style="font-size:1.3em"), 
          style = "margin-top:2em;"
        ),
+       br(),
+       
+       div(
+          span(textOutput('streaks'), style="font-size:1.3em")
+       ),
+       br(),
        
        plotOutput("expectedMove")
     ),
@@ -24,21 +32,44 @@ ui <- fluidPage(
              sidebarLayout(
                fluid = TRUE,
                sidebarPanel(
-                 textInput("start_date", "Start Date", "YYYY-MM-DD"),
-                 textInput("end_date", "End Date", "YYYY-MM-DD")
+                 textInput("start_date", "Start Date", '2019-01-01'),
+                 textInput("end_date", "End Date", lubridate::today())
                ),
                
                mainPanel(
-                 plotOutput("distPlot"),
                  fluidRow(
-                   column(8, offset = 3,
-                          textOutput("breaches")
+                   column(8,
+                          span(
+                            textOutput("closed_inside")
+                            , style = "font-size:1.5em"
+                          )
                    )
                  ),
                  br(),
                  fluidRow(
-                   column(8, offset = 3,
-                          textOutput("temporary_breaches")
+                   column(8,
+                          span(
+                            textOutput("closed_outside")
+                            , style = "font-size:1.5em"
+                          )
+                   )
+                 ),
+                 br(),
+                 fluidRow(
+                   column(8,
+                          span(
+                            textOutput("never_breached")
+                            , style = "font-size:1.5em"
+                          )
+                   )
+                 ),
+                 br(),
+                 fluidRow(
+                   column(8,
+                          span(
+                            textOutput("temporarily_breached")
+                            , style = "font-size:1.5em"
+                          )
                    )
                  )
                )

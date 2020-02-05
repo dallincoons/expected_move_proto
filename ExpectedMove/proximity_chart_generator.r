@@ -47,23 +47,47 @@ getAmountBreachedExpectedMove <- function() {
   }
 }
 
-getClosedSDMessage <- function() {
+getClosedOutsideDeviations <- function() {
   if (closedOutsideExpectedMove()) {
-    deviations = trunc(getAmountOutsideExpectedMove()/expected_move_total_width*10^2)/10^2
-    return(sprintf("Outside the expected move by %s deviations", deviations))
+    deviations = trunc(getAmountClosedOutsideExpectedMove()/expected_move_total_width*10^2)/10^2
+    return(deviations)
   }
   
   return("Closed inside the expected move");
+}
+
+getAmountClosedOutsideExpectedMove <- function() {
+  if (current_week$close < current_week$expected_low) {
+    return(current_week$expected_low - current_week$close)
+  }
+  
+  if (current_week$close > current_week$expected_high) {
+    return(current_week$close - current_week$expected_high)
+  }
+  
+  return(0)
 }
 
 closedOutsideExpectedMove <- function() {
   return(current_week$close < current_week$expected_low | current_week$close > current_week$expected_high)
 }
 
-getBreachedSDExpectedMoveMessage <- function() {
+amountExpectedMoveWasBreached <- function() {
+  if (current_week$low < current_week$expected_low) {
+    return(current_week$expected_low - current_week$low)
+  }
+  
+  if (current_week$high > current_week$expected_high) {
+    return(current_week$high - current_week$expected_high)
+  }
+  
+  return(0)
+}
+
+getBreachedStandardDeviation <- function() {
   if (expectedMoveWasBreached()) {
     deviations = trunc(amountExpectedMoveWasBreached()/expected_move_total_width*10^2)/10^2
-    return(sprintf("Breached by %s deviations", deviations))
+    return(deviations)
   }
   
   return("Never breached expected move")
@@ -73,19 +97,7 @@ expectedMoveWasBreached <- function() {
   return(current_week$low < current_week$expected_low | current_week$high > current_week$expected_high)
 }
 
-amountExpectedMoveWasBreached <- function() {
-  if (current_week$low < current_week$expected_low) {
-    return(current_week$expected_low - current_week$low)
-  }
-  
-  if (current_week$high < current_week$expected_high) {
-    return(current_week$high - current_week$expected_high)
-  }
-  
-  return(0)
-}
-
-get_recent_streak <- function () {
+getRecentStreak <- function () {
   previous = current_week$breached
   streak_count = 1
   for (row in 2:nrow(expected_moves)) {
@@ -99,6 +111,10 @@ get_recent_streak <- function () {
   }
   
   return(streak_count)
+}
+
+isRecentStreakOfTypeBreach <- function() {
+  return(current_week$breached == 1)
 }
 
 get_breached_count <- function (start_date, end_date) {

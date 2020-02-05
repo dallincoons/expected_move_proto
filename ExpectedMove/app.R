@@ -1,11 +1,12 @@
-pacman::p_load(shiny, shinythemes)
+pacman::p_load(shiny)
 
 library(shiny)
-library(shinythemes)
+# library(shinythemes)
 
-source('./proximity_chart_generator.r', local = T)
+source('proximity_chart_generator.r', local = T)
 source('ui.R')
 source('server.R')
 
-shinyApp(ui = ui, server = server)
+shiny::shinyApp(ui = ui, server = server)
 
+shiny::runApp()
