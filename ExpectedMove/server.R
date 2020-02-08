@@ -49,4 +49,10 @@ server <- function(input, output) {
   output$streaks <- renderText({
     return(sprintf("%s for the last %s weeks", ifelse(isRecentStreakOfTypeBreach(), "Breached EM", "Stayed inside EM"), getRecentStreak()))
   })
+  
+  output$streaksChart <- renderPlot({
+    source('./streak_chart.R')
+    
+    streaksChart(input$streak_start_date, input$streak_end_date)
+  })
 }

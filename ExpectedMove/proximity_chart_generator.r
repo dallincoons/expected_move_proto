@@ -1,21 +1,8 @@
 pacman::p_load(tidyverse, lubridate)
 
-expected_moves <- read_csv('./expected_moves.csv') %>% 
-  mutate(week_start = mdy(week_start)) %>% 
-  mutate(week_end = mdy(week_end)) %>% 
-  arrange(desc(week_start))
+source('./expected_moves.R')
 
-expected_moves <- expected_moves %>% 
-  mutate(breached = case_when(
-    (close <= expected_low) | (close >= expected_high) ~ TRUE,
-    TRUE ~ FALSE
-  ),
-  t_breached = case_when(
-    (low <= expected_low & close >= expected_low) | 
-    (high >= expected_high & high <= expected_high) ~ TRUE,
-    TRUE ~ FALSE
-  )
-)
+expected_moves <- expected_moves()
 
 current_week <- expected_moves %>% head(1)
 expected_move_total_width = current_week$expected_high-current_week$expected_low

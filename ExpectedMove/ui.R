@@ -21,12 +21,18 @@ ui <- fluidPage(
        ),
        br(),
        
+       plotOutput("expectedMove"),
+       
+       br(),
+       
        div(
           span(textOutput('streaks'), style="font-size:1.3em")
        ),
-       br(),
-       
-       plotOutput("expectedMove")
+        span(
+          textInput("streak_start_date", "Start Date", Sys.Date() %m+% months(-4)),
+          textInput("streak_end_date", "End Date", lubridate::today())
+        ),
+       plotOutput("streaksChart")
     ),
     tabPanel("Breached Stats", fluid = TRUE,
              sidebarLayout(
