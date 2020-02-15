@@ -1,21 +1,12 @@
 source('proximity_chart_generator.r', local = T)
+source('current_week_EM_chart.R', local = T)
 
 pacman::p_load(tidyverse)
 
 server <- function(input, output) {
   
   output$expectedMove <- renderPlot({
-    ggplot() +
-      xlim(0,10) +
-      ylim(getChartLowerBound(current_week), getChartUpperBound(current_week)) +
-      geom_hline(yintercept=current_week$expected_high, color="black") +
-      geom_hline(yintercept=current_week$expected_low, color="black") +
-      geom_hline(yintercept=current_week$close, color='red') +
-      ylab("SPY stock price") +
-      xlab("") +
-      theme_minimal() +
-      theme(axis.title.x=element_blank(),
-            axis.text.x=element_blank())
+    showCurrentWeekEMChart() 
   })
   
   output$closed_inside <- renderText({ 
@@ -53,6 +44,6 @@ server <- function(input, output) {
   output$streaksChart <- renderPlot({
     source('./streak_chart.R')
     
-    streaksChart(input$streak_start_date, input$streak_end_date)
+    streaksChart(input$start_date, input$end_date)
   })
 }

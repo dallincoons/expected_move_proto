@@ -1,4 +1,4 @@
-library(shinythemes, lubridate)
+pacman::p_load(shinythemes, lubridate)
 
 ui <- fluidPage(
   
@@ -19,30 +19,30 @@ ui <- fluidPage(
          span(textOutput('breached_sd_message'), style="font-size:1.3em"), 
          style = "margin-top:2em;"
        ),
-       br(),
-       
-       plotOutput("expectedMove"),
        
        br(),
        
-       div(
-          span(textOutput('streaks'), style="font-size:1.3em")
-       ),
-        span(
-          textInput("streak_start_date", "Start Date", Sys.Date() %m+% months(-4)),
-          textInput("streak_end_date", "End Date", lubridate::today())
-        ),
-       plotOutput("streaksChart")
+       plotOutput("expectedMove")
     ),
+    
     tabPanel("Breached Stats", fluid = TRUE,
              sidebarLayout(
                fluid = TRUE,
                sidebarPanel(
-                 textInput("start_date", "Start Date", '2019-01-01'),
+                 textInput("start_date", "Start Date", today() - months(4)),
                  textInput("end_date", "End Date", lubridate::today())
                ),
                
                mainPanel(
+                 fluidRow(
+                   column(8,
+                        span(
+                          textOutput('streaks')
+                          , style="font-size:1.6em"
+                        )
+                   )
+                 ),
+                 br(),
                  fluidRow(
                    column(8,
                           span(
@@ -50,8 +50,8 @@ ui <- fluidPage(
                             , style = "font-size:1.5em"
                           )
                    )
+                   
                  ),
-                 br(),
                  fluidRow(
                    column(8,
                           span(
@@ -60,7 +60,6 @@ ui <- fluidPage(
                           )
                    )
                  ),
-                 br(),
                  fluidRow(
                    column(8,
                           span(
@@ -69,7 +68,6 @@ ui <- fluidPage(
                           )
                    )
                  ),
-                 br(),
                  fluidRow(
                    column(8,
                           span(
@@ -78,6 +76,12 @@ ui <- fluidPage(
                           )
                    )
                  )
+               )
+             ),
+             
+             fluidPage(
+               fluidRow(
+                 plotOutput("streaksChart")
                )
              )
     )

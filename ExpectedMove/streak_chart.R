@@ -4,7 +4,7 @@ source('./expected_moves.R')
 
 expected_moves <- expected_moves()
 
-breached_moves <- expected_moves %>% 
+breached_moves <- expected_moves %>%
   filter(breached == 1)
 
 unbreached_moves <- expected_moves %>% 
@@ -30,5 +30,5 @@ ggplot() +
         color_down = 'red', fill_up = 'red',
         fill_down = 'red'
     )
-  )
+  ) 
 }
