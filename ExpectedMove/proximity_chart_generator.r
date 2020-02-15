@@ -2,7 +2,7 @@ pacman::p_load(tidyverse, lubridate)
 
 source('./expected_moves.R')
 
-expected_moves <- expected_moves()
+expected_moves <- expected_moves(margin_of_error)
 
 current_week <- expected_moves %>% head(1)
 expected_move_total_width = current_week$expected_high-current_week$expected_low

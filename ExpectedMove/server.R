@@ -44,6 +44,6 @@ server <- function(input, output) {
   output$streaksChart <- renderPlot({
     source('./streak_chart.R')
     
-    streaksChart(input$start_date, input$end_date)
+    streaksChart(input$start_date, input$end_date, as.numeric(input$margin_of_error) / 100)
   })
 }

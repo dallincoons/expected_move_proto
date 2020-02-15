@@ -1,6 +1,6 @@
 pacman::p_load(tidyverse, lubridate)
 
-expected_moves <- function() {
+expected_moves <- function(margin_of_error = .002) {
   
   expected_moves <- read_csv('./expected_moves.csv') %>% 
     mutate(week_start = mdy(week_start)) %>% 
@@ -9,7 +9,8 @@ expected_moves <- function() {
   
   expected_moves <- expected_moves %>% 
     mutate(breached = case_when(
-      (close <= expected_low) | (close >= expected_high) ~ TRUE,
+      (close <= expected_low - (expected_low * margin_of_error)) | 
+      (close >= expected_high + (expected_high * margin_of_error)) ~ TRUE,
       TRUE ~ FALSE
     ),
     t_breached = case_when(

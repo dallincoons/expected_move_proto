@@ -30,7 +30,9 @@ ui <- fluidPage(
                fluid = TRUE,
                sidebarPanel(
                  textInput("start_date", "Start Date", today() - months(4)),
-                 textInput("end_date", "End Date", lubridate::today())
+                 textInput("end_date", "End Date", lubridate::today()),
+                 br(),
+                 textInput("margin_of_error", "Margin of Error %", .2)
                ),
                
                mainPanel(
