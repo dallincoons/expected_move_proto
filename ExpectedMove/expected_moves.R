@@ -14,8 +14,8 @@ expected_moves <- function(margin_of_error = .002) {
       TRUE ~ FALSE
     ),
     t_breached = case_when(
-      (low <= expected_low & close >= expected_low) | 
-        (high >= expected_high & high <= expected_high) ~ TRUE,
+      (low <= expected_low - (expected_low * margin_of_error) & close >= expected_low - (expected_low * margin_of_error)) | 
+        (high >= expected_high + (expected_high * margin_of_error) & high <= expected_high + (expected_high * margin_of_error)) ~ TRUE,
       TRUE ~ FALSE
     )
     )
