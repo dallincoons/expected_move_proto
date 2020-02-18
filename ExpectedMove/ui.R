@@ -11,17 +11,17 @@ ui <- fluidPage(
     
     tabPanel("Weekly Move", fluid = TRUE,
        div(
-         span(textOutput('sd_message'), style="font-size:1.3em"), 
+         span(textOutput('sd_message'), style="font-size:1.3em"),
          style = "margin-top:2em;"
        ),
-       
+
        div(
-         span(textOutput('breached_sd_message'), style="font-size:1.3em"), 
+         span(textOutput('breached_sd_message'), style="font-size:1.3em"),
          style = "margin-top:2em;"
        ),
-       
+
        br(),
-       
+
        plotOutput("expectedMove")
     ),
     
