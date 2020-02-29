@@ -13,7 +13,7 @@ gray<-'#78727A'
 streaksChart <- function(startDate, endDate, margin_of_error = .002) {
   
   expectedmoves <- expected_moves(margin_of_error) %>% 
-    filter(week_start >= startDate, week_end <= endDate)
+    filter(week_start >= startDate, week_start <= endDate)
 
   breached_moves <- expectedmoves %>%
     filter(breached == 1)
@@ -64,21 +64,3 @@ ggplot() +
     )
   )
 }
-
-streaksChart('2019-09-01', '2020-01-01', .002)
-
-# x <- c("2020-01-01","2020-01-02","2020-01-03","2020-01-04","20109-01-05")
-# y <- c(2,3,5,8,9)
-# 
-# xmin <- c(2,5)
-# xmax <- c(3,6)
-# ymin <- c(4,6)
-# ymax <- c(6,8)
-
-# boxes <- data.frame(x = xmin, x2 = xmax, y = ymin, y2 = ymax)
-
-# ggplot(data = data.frame(x,y), 
-#        aes(x=x, y=y)) +
-#   geom_point() +
-#   geom_rect(data = boxes, aes(xmin = x, xmax = x2, ymin = y, ymax = y2), fill = "orange")
-  # geom_rect(xmin = 2, xmax = 4, ymin = 4, ymax = 6, fill = "orange")

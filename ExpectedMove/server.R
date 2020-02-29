@@ -39,7 +39,7 @@ server <- function(input, output) {
   })
   
   output$sd_message <- renderText({
-    return(sprintf("Closed outside the expected move by %s deviations", getClosedOutsideDeviations()))
+    return(sprintf("Closed outside by %s deviations", getClosedOutsideDeviations()))
   })
   
   output$breached_sd_message <- renderText({
@@ -49,6 +49,14 @@ server <- function(input, output) {
   output$streaks <- renderText({
     return(sprintf("%s for the last %s weeks", ifelse(isRecentStreakOfTypeBreach(get_margin_of_error(input)), "Breached EM", "Stayed inside EM"), getRecentStreak(get_margin_of_error(input))))
     
+  })
+  
+  output$em_level_text <- renderText({
+    return(sprintf(
+      'The expected move this week is between %s and %s', 
+      current_week$expected_low, 
+      current_week$expected_high
+    ))
   })
   
   output$streaksChart <- renderPlot({

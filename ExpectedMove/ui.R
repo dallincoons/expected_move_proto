@@ -4,20 +4,25 @@ ui <- fluidPage(
   
   theme = shinytheme("paper"),
   
-  # Application title
-  titlePanel("Expected Moves"),
-  
   tabsetPanel(
     
     tabPanel("Weekly Move", fluid = TRUE,
+       h2(
+         'Expected Move for S&P 500 (SPY)',
+         style = "font-size:20px"
+       ),       
+       
+       div(
+         span(textOutput('em_level_text'))
+       ),
+       
        div(
          span(textOutput('sd_message'), style="font-size:1.3em"),
          style = "margin-top:2em;"
        ),
 
        div(
-         span(textOutput('breached_sd_message'), style="font-size:1.3em"),
-         style = "margin-top:2em;"
+         span(textOutput('breached_sd_message'), style="font-size:1.3em")
        ),
 
        br(),
