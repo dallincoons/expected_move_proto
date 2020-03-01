@@ -14,7 +14,7 @@ value_or_zero <- function(value) {
 server <- function(input, output) {
   
   output$expectedMove <- renderPlot({
-    showCurrentWeekEMChart() 
+    showCurrentWeekEMChart()
   })
   
   output$closed_inside <- renderText({ 
@@ -48,7 +48,6 @@ server <- function(input, output) {
   
   output$streaks <- renderText({
     return(sprintf("%s for the last %s weeks", ifelse(isRecentStreakOfTypeBreach(get_margin_of_error(input)), "Breached EM", "Stayed inside EM"), getRecentStreak(get_margin_of_error(input))))
-    
   })
   
   output$em_level_text <- renderText({

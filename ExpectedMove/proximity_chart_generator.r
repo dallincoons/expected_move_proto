@@ -33,18 +33,18 @@ getChartUpperBound <- function(current_week) {
 }
 
 getAmountBreachedExpectedMove <- function() {
-  if (current_week$close < current_week$expected_low) {
-    return(current_week$expected_low - current_week$close)
+  if (current_week$low < current_week$expected_low) {
+    return(trunc(abs(current_week$open - current_week$low)/(expected_move_total_width/2)*10^2)/10^2)
   }
   
   if (current_week$high > current_week$expected_high) {
-    return(current_week$close - current_week$expected_high) 
+    return(trunc(abs(current_week$high - current_week$open)/(expected_move_total_width/2)*10^2)/10^2)
   }
 }
 
 getClosedOutsideDeviations <- function() {
   if (closedOutsideExpectedMove()) {
-    deviations = trunc(getAmountClosedOutsideExpectedMove()/expected_move_total_width*10^2)/10^2
+    deviations = trunc(abs(current_week$open - current_week$close)/(expected_move_total_width/2)*10^2)/10^2
     return(deviations)
   }
   
@@ -53,11 +53,11 @@ getClosedOutsideDeviations <- function() {
 
 getAmountClosedOutsideExpectedMove <- function() {
   if (current_week$close < current_week$expected_low) {
-    return(current_week$expected_low - current_week$close)
+    return(current_week$expected_low - current_week$close - expected_move_total_width/2)
   }
   
   if (current_week$close > current_week$expected_high) {
-    return(current_week$close - current_week$expected_high)
+    return(current_week$close - current_week$expected_high - expected_move_total_width/2)
   }
   
   return(0)
@@ -69,11 +69,11 @@ closedOutsideExpectedMove <- function() {
 
 amountExpectedMoveWasBreached <- function() {
   if (current_week$low < current_week$expected_low) {
-    return(current_week$expected_low - current_week$low)
+    return(current_week$expected_low - current_week$low - expected_move_total_width/2)
   }
   
   if (current_week$high > current_week$expected_high) {
-    return(current_week$high - current_week$expected_high)
+    return(current_week$high - current_week$expected_high - expected_move_total_width/2)
   }
   
   return(0)
@@ -81,7 +81,7 @@ amountExpectedMoveWasBreached <- function() {
 
 getBreachedStandardDeviation <- function() {
   if (expectedMoveWasBreached()) {
-    deviations = trunc(amountExpectedMoveWasBreached()/expected_move_total_width*10^2)/10^2
+    deviations = trunc(amountExpectedMoveWasBreached()/(expected_move_total_width/2)*10^2)/10^2
     return(deviations)
   }
   
