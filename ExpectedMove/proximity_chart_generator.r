@@ -6,7 +6,7 @@ if (!exists("margin_of_error")) {
   margin_of_error <- .002
 }
 
-getExpectedMoves <- function(margin_of_error = .002) {
+getExpectedMoves <- function() {
   expected_moves <- expected_moves(margin_of_error)
 }
 
@@ -92,8 +92,8 @@ expectedMoveWasBreached <- function() {
   return(current_week$low < current_week$expected_low | current_week$high > current_week$expected_high)
 }
 
-getRecentStreak <- function (margin_of_error = .002) {
-  expected_moves <- getExpectedMoves(margin_of_error)
+getRecentStreak <- function () {
+  expected_moves <- getExpectedMoves()
   current_week <- expected_moves %>% head(1)
   previous = current_week$breached
   streak_count = 1
@@ -110,14 +110,14 @@ getRecentStreak <- function (margin_of_error = .002) {
   return(streak_count)
 }
 
-isRecentStreakOfTypeBreach <- function(margin_of_error) {
-  expected_moves <- getExpectedMoves(margin_of_error)
+isRecentStreakOfTypeBreach <- function() {
+  expected_moves <- getExpectedMoves()
   current_week <- expected_moves %>% head(1)
   return(current_week$breached == 1)
 }
 
-get_breached_count <- function (start_date, end_date, margin_of_error = .002) {
-  expected_moves <- getExpectedMoves(margin_of_error)
+get_breached_count <- function (start_date, end_date) {
+  expected_moves <- getExpectedMoves()
   result <- expected_moves %>% 
     filter(week_start >= start_date) %>% 
     filter(week_end <= end_date)
@@ -128,7 +128,7 @@ get_breached_count <- function (start_date, end_date, margin_of_error = .002) {
 }
 
 get_temporarily_breached_count <- function (start_date, end_date, margin_of_error = .002) {
-  expected_moves <- getExpectedMoves(margin_of_error)
+  expected_moves <- getExpectedMoves()
   result <- expected_moves %>% 
     filter(week_start >= start_date) %>% 
     filter(week_end <= end_date)

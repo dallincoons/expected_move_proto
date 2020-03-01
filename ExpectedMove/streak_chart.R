@@ -10,7 +10,7 @@ green<-'#0BFF01'
 orange<-'#f28705'
 gray<-'#78727A'
 
-streaksChart <- function(startDate, endDate, margin_of_error = .002) {
+streaksChart <- function(startDate, endDate) {
   
   expectedmoves <- expected_moves(margin_of_error) %>% 
     filter(week_start >= startDate, week_start <= endDate)

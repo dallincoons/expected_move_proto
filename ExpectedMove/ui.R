@@ -37,7 +37,8 @@ ui <- fluidPage(
                  textInput("start_date", "Start Date", today() - months(4)),
                  textInput("end_date", "End Date", lubridate::today()),
                  br(),
-                 textInput("margin_of_error", "Margin of Error %", .2)
+                 textInput("margin_of_error", "Expected move expansion %", .2),
+                 actionButton("submit_streaks", "Go")
                ),
                
                mainPanel(
@@ -92,5 +93,19 @@ ui <- fluidPage(
                )
              )
     )
+    
+    # tabPanel("Filters", fluid = TRUE, 
+    #   h2("Filters"),
+    #   
+    #   selectInput("day_filter", "Choose a day:",
+    #       list("Monday" = "mon", "Tuesday" = "tue", "Wednesday" = "wed", "Thursday" = "thu", "Friday" = "fri")
+    #   ),
+    #   
+    #   selectInput("sd_direction_filter", "Direction breached EM",
+    #       list("Up" = "up", "Down" = "down")
+    #   ),
+    #   
+    #   actionButton("filter", "Go", icon("rocket"))
+    # )
   )
 )
