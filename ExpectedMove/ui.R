@@ -37,7 +37,7 @@ ui <- fluidPage(
                  textInput("start_date", "Start Date", today() - months(4)),
                  textInput("end_date", "End Date", lubridate::today()),
                  br(),
-                 textInput("margin_of_error", "Margin of Error %", .2)
+                 textInput("margin_of_error", "Expected move expansion %", .2)
                ),
                
                mainPanel(
@@ -91,6 +91,8 @@ ui <- fluidPage(
                  plotOutput("streaksChart")
                )
              )
-    )
+    ),
+    
+    # tabPanel("Breached Stats", fluid = TRUE)
   )
 )
