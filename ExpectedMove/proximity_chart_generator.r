@@ -85,7 +85,7 @@ getBreachedStandardDeviation <- function() {
     return(deviations)
   }
   
-  return("Never breached expected move")
+  return(0)
 }
 
 expectedMoveWasBreached <- function() {

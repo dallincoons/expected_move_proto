@@ -67,6 +67,12 @@ server <- function(input, output) {
   })
   
   output$breached_sd_message <- renderText({
+    breachedBy <- getBreachedStandardDeviation()
+      
+    if (breachedBy <= 0) {
+      return("Never breached expected move")
+    }
+    
     return(sprintf("Breached by %s deviations", getBreachedStandardDeviation()))
   })
   
