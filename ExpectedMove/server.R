@@ -46,8 +46,6 @@ populateStreaks <- function(input, output) {
   output$streaksChart <- renderPlot({
     source('./streak_chart.R')
     
-    print(margin_of_error)
-    
     streaksChart(input$start_date, input$end_date)
   })
 }

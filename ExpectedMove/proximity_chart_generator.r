@@ -73,7 +73,7 @@ amountExpectedMoveWasBreached <- function() {
   }
   
   if (current_week$high > current_week$expected_high) {
-    return(current_week$high - current_week$expected_high - expected_move_total_width/2)
+    return(current_week$high - current_week$expected_high + expected_move_total_width/2)
   }
   
   return(0)
