@@ -57,7 +57,13 @@ server <- function(input, output) {
   })
   
   output$sd_message <- renderText({
-    return(sprintf("Closed outside by %s deviations", getClosedOutsideDeviations()))
+    closedOutsideBy <- getClosedOutsideDeviations()
+    
+    if (closedOutsideBy < 0) {
+      return("Closed inside the expected move")
+    }
+    
+    return(sprintf("Closed outside by %s deviations", closedOutsideBy))
   })
   
   output$breached_sd_message <- renderText({

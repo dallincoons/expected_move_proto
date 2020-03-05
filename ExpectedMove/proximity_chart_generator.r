@@ -48,7 +48,7 @@ getClosedOutsideDeviations <- function() {
     return(deviations)
   }
   
-  return("Closed inside the expected move");
+  return(-1);
 }
 
 getAmountClosedOutsideExpectedMove <- function() {
