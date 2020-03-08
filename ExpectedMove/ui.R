@@ -45,28 +45,36 @@ ui <- fluidPage(
                  fluidRow(
                    column(8,
                         span(
+                          'Breach Expected Move Streak'
+                        ),
+                        span(
                           textOutput('streaks')
-                          , style="font-size:1.6em"
+                          , style="font-size:1.6em; font-weight: 800; line-height: 1"
                         )
                    )
                  ),
                  br(),
                  fluidRow(
-                   column(8,
+                    column(3,
+                      span(
+                          span('Closed Inside'),
                           span(
                             textOutput("closed_inside")
                             , style = "font-size:1.5em"
-                          )
-                   )
-                   
-                 ),
-                 fluidRow(
-                   column(8,
-                          span(
-                            textOutput("closed_outside")
-                            , style = "font-size:1.5em"
-                          )
-                   )
+                          ),
+                          style="line-height: 1"
+                        )
+                    ),
+                    column(3,
+                      span(
+                        span('Closed Outside'),
+                        span(
+                          textOutput("closed_outside")
+                          , style = "font-size:1.5em"
+                        ),
+                        style="line-height: 1"
+                      )
+                      )
                  ),
                  fluidRow(
                    column(8,

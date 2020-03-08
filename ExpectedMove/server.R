@@ -20,17 +20,19 @@ populateStreaks <- function(input, output) {
   assign("margin_of_error", get_margin_of_error(input), envir = .GlobalEnv)
   
   output$streaks <- renderText({
-    return(sprintf("%s for the last %s weeks", ifelse(isRecentStreakOfTypeBreach(), "Breached EM", "Stayed inside EM"), getRecentStreak()))
+    return(sprintf("%s for the last %s weeks", ifelse(isRecentStreakOfTypeBreach(), "Outside EM", "Inside"), getRecentStreak()))
   })
   
   output$closed_inside <- renderText({ 
     breaches <- get_breached_count(as.character(input$start_date), input$end_date)
-    paste("Weeks closed inside: ", value_or_zero(breaches[1]))
+    return(value_or_zero(breaches[1]))
+    # paste("Weeks closed inside: ", value_or_zero(breaches[1]))
   })
   
   output$closed_outside <- renderText({ 
     breaches <- get_breached_count(as.character(input$start_date), input$end_date)
-    paste("Weeks closed outside: ", value_or_zero(breaches[2]))
+    return(value_or_zero(breaches[2]))
+    # paste("Weeks closed outside: ", value_or_zero(breaches[2]))
   })
   
   output$never_breached <- renderText({ 
