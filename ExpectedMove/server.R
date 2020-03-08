@@ -37,12 +37,14 @@ populateStreaks <- function(input, output) {
   
   output$never_breached <- renderText({ 
     temp_breaches <- get_temporarily_breached_count(input$start_date, input$end_date)
-    paste("Weeks never breached: ", value_or_zero(temp_breaches[1]))
+    return(value_or_zero(temp_breaches[1]))
+    # paste("Weeks never breached: ", value_or_zero(temp_breaches[1]))
   })
   
   output$temporarily_breached <- renderText({ 
     temp_breaches <- get_temporarily_breached_count(input$start_date, input$end_date)
-    paste("Weeks temporarily breached: ", value_or_zero(temp_breaches[2]))
+    return(value_or_zero(temp_breaches[2]))
+    # paste("Weeks temporarily breached: ", value_or_zero(temp_breaches[2]))
   })
   
   output$streaksChart <- renderPlot({

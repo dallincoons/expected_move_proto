@@ -74,22 +74,29 @@ ui <- fluidPage(
                         ),
                         style="line-height: 1"
                       )
-                      )
-                 ),
+                    ),
+                    column(3,
+                       span(
+                         span('Never breached'),
+                         span(
+                           textOutput("never_breached")
+                           , style = "font-size:1.5em"
+                         ),
+                         style="line-height: 1"
+                       )
+                    ),
+                    column(3,
+                       span(
+                         span('Temporarily Breached'),
+                         span(
+                           textOutput("temporarily_breached")
+                           , style = "font-size:1.5em"
+                         ),
+                         style="line-height: 1"
+                       )
+                    ),
                  fluidRow(
-                   column(8,
-                          span(
-                            textOutput("never_breached")
-                            , style = "font-size:1.5em"
-                          )
-                   )
-                 ),
-                 fluidRow(
-                   column(8,
-                          span(
-                            textOutput("temporarily_breached")
-                            , style = "font-size:1.5em"
-                          )
+                   
                    )
                  )
                )
