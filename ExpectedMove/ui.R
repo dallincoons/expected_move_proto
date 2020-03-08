@@ -60,7 +60,7 @@ ui <- fluidPage(
                           span('Closed Inside'),
                           span(
                             textOutput("closed_inside")
-                            , style = "font-size:1.5em"
+                            , style = "font-size:1.5em; font-weight: 900"
                           ),
                           style="line-height: 1"
                         )
@@ -70,7 +70,7 @@ ui <- fluidPage(
                         span('Closed Outside'),
                         span(
                           textOutput("closed_outside")
-                          , style = "font-size:1.5em"
+                          , style = "font-size:1.5em; font-weight: 900"
                         ),
                         style="line-height: 1"
                       )
@@ -80,7 +80,7 @@ ui <- fluidPage(
                          span('Never breached'),
                          span(
                            textOutput("never_breached")
-                           , style = "font-size:1.5em"
+                           , style = "font-size:1.5em; font-weight: 900"
                          ),
                          style="line-height: 1"
                        )
@@ -90,7 +90,7 @@ ui <- fluidPage(
                          span('Temporarily Breached'),
                          span(
                            textOutput("temporarily_breached")
-                           , style = "font-size:1.5em"
+                           , style = "font-size:1.5em; font-weight: 900"
                          ),
                          style="line-height: 1"
                        )
