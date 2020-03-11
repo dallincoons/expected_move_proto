@@ -34,17 +34,17 @@ getChartUpperBound <- function(current_week) {
 
 getAmountBreachedExpectedMove <- function() {
   if (current_week$low < current_week$expected_low) {
-    return(trunc(abs(current_week$open - current_week$low)/(expected_move_total_width/2)*10^2)/10^2)
+    return(trunc(abs(last_week$close - current_week$low)/(expected_move_total_width/2)*10^2)/10^2)
   }
   
   if (current_week$high > current_week$expected_high) {
-    return(trunc(abs(current_week$high - current_week$open)/(expected_move_total_width/2)*10^2)/10^2)
+    return(trunc(abs(current_week$high - last_week$close)/(expected_move_total_width/2)*10^2)/10^2)
   }
 }
 
 getClosedOutsideDeviations <- function() {
   if (closedOutsideExpectedMove()) {
-    deviations = trunc(abs(current_week$open - current_week$close)/(expected_move_total_width/2)*10^2)/10^2
+    deviations = trunc((abs(last_week$close - current_week$close) - (expected_move_total_width/2))/(expected_move_total_width/2)*10^2)/10^2
     return(deviations)
   }
   
@@ -82,7 +82,7 @@ amountExpectedMoveWasBreached <- function() {
 getBreachedStandardDeviation <- function() {
   if (expectedMoveWasBreached()) {
     deviations = trunc(amountExpectedMoveWasBreached()/(expected_move_total_width/2)*10^2)/10^2
-    return(deviations)
+    return(abs(deviations))
   }
   
   return(0)
