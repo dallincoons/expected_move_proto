@@ -1,5 +1,5 @@
-source('proximity_chart_generator.r', local = T)
-source('current_week_EM_chart.R', local = T)
+source('current_week_EM_chart.R', local = F)
+source('proximity_chart_generator.r', local = F)
 
 pacman::p_load(tidyverse)
 
@@ -26,25 +26,21 @@ populateStreaks <- function(input, output) {
   output$closed_inside <- renderText({ 
     breaches <- get_breached_count(as.character(input$start_date), input$end_date)
     return(value_or_zero(breaches[1]))
-    # paste("Weeks closed inside: ", value_or_zero(breaches[1]))
   })
   
   output$closed_outside <- renderText({ 
     breaches <- get_breached_count(as.character(input$start_date), input$end_date)
     return(value_or_zero(breaches[2]))
-    # paste("Weeks closed outside: ", value_or_zero(breaches[2]))
   })
   
   output$never_breached <- renderText({ 
     temp_breaches <- get_temporarily_breached_count(input$start_date, input$end_date)
     return(value_or_zero(temp_breaches[1]))
-    # paste("Weeks never breached: ", value_or_zero(temp_breaches[1]))
   })
   
   output$temporarily_breached <- renderText({ 
     temp_breaches <- get_temporarily_breached_count(input$start_date, input$end_date)
     return(value_or_zero(temp_breaches[2]))
-    # paste("Weeks temporarily breached: ", value_or_zero(temp_breaches[2]))
   })
   
   output$streaksChart <- renderPlot({

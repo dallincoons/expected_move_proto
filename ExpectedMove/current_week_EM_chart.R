@@ -7,11 +7,6 @@ showCurrentWeekEMChart <- function() {
   
 spy <- read_csv('./daily_prices/SPY.csv')
 
-expected_moves <- expected_moves()
-
-current_week <- expected_moves %>% head(1)
-last_week <- expected_moves %>% head(2)[-1,]
-
 spy %>%
   filter(Date >= current_week$week_start) %>%
   ggplot() +

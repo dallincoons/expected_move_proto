@@ -3,16 +3,14 @@ pacman::p_load(tidyverse, lubridate)
 source('./expected_moves.R')
 
 if (!exists("margin_of_error")) {
-  margin_of_error <- .002
-}
-
-getExpectedMoves <- function() {
-  expected_moves <- expected_moves(margin_of_error)
+  margin_of_error <<- .002
 }
 
 expected_moves <- expected_moves(margin_of_error)
 
 current_week <- expected_moves %>% head(1)
+last_week <<- expected_moves %>% head(2)[-1,]
+
 expected_move_total_width = current_week$expected_high-current_week$expected_low
 exptected_move_deviation = expected_move_total_width / 2
 
@@ -44,36 +42,36 @@ getAmountBreachedExpectedMove <- function() {
 
 getClosedOutsideDeviations <- function() {
   if (closedOutsideExpectedMove()) {
-    deviations = trunc((abs(last_week$close - current_week$close) - (expected_move_total_width/2))/(expected_move_total_width/2)*10^2)/10^2
-    return(deviations)
+    deviations <- trunc(getAmountClosedOutsideExpectedMove()/(expected_move_total_width/2)*10^2)/10^2
+    return(abs(deviations))
   }
   
-  return(-1);
+  return(-1)
 }
 
 getAmountClosedOutsideExpectedMove <- function() {
   if (current_week$close < current_week$expected_low) {
-    return(current_week$expected_low - current_week$close - expected_move_total_width/2)
+    return(current_week$expected_low - current_week$close)
   }
   
   if (current_week$close > current_week$expected_high) {
-    return(current_week$close - current_week$expected_high - expected_move_total_width/2)
+    return(current_week$close - current_week$expected_high)
   }
   
   return(0)
 }
 
 closedOutsideExpectedMove <- function() {
-  return(current_week$close < current_week$expected_low | current_week$close > current_week$expected_high)
+  return((current_week$close < current_week$expected_low) | (current_week$close > current_week$expected_high))
 }
 
 amountExpectedMoveWasBreached <- function() {
   if (current_week$low < current_week$expected_low) {
-    return(current_week$expected_low - current_week$low - expected_move_total_width/2)
+    return(current_week$expected_low - current_week$low)
   }
   
   if (current_week$high > current_week$expected_high) {
-    return(current_week$high - current_week$expected_high + expected_move_total_width/2)
+    return(current_week$high - current_week$expected_high)
   }
   
   return(0)
@@ -93,7 +91,6 @@ expectedMoveWasBreached <- function() {
 }
 
 getRecentStreak <- function () {
-  expected_moves <- getExpectedMoves()
   current_week <- expected_moves %>% head(1)
   previous = current_week$breached
   streak_count = 1
@@ -111,13 +108,11 @@ getRecentStreak <- function () {
 }
 
 isRecentStreakOfTypeBreach <- function() {
-  expected_moves <- getExpectedMoves()
   current_week <- expected_moves %>% head(1)
   return(current_week$breached == 1)
 }
 
 get_breached_count <- function (start_date, end_date) {
-  expected_moves <- getExpectedMoves()
   result <- expected_moves %>% 
     filter(week_start >= start_date) %>% 
     filter(week_end <= end_date)
@@ -128,7 +123,6 @@ get_breached_count <- function (start_date, end_date) {
 }
 
 get_temporarily_breached_count <- function (start_date, end_date, margin_of_error = .002) {
-  expected_moves <- getExpectedMoves()
   result <- expected_moves %>% 
     filter(week_start >= start_date) %>% 
     filter(week_end <= end_date)

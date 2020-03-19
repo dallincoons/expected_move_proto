@@ -24,4 +24,3 @@ expected_moves <- function(margin_of_error = .002) {
   
   return(expected_moves)
 }
-

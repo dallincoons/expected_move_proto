@@ -1,11 +1,17 @@
 pacman::p_load(shiny)
 
-library(shiny)
-# library(shinythemes)
+source('./expected_moves.R')
 
-source('proximity_chart_generator.r', local = T)
-source('ui.R')
-source('server.R')
+expected_moves <- expected_moves()
+
+current_week <<- expected_moves %>% head(1)
+last_week <<- expected_moves %>% head(2)[-1,]
+
+source('./current_week_EM_chart.R', local = F)
+
+source('ui.R', local = F)
+source('server.R', local = F)
+
 
 shiny::shinyApp(ui = ui, server = server)
 
