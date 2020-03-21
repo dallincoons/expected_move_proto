@@ -24,37 +24,22 @@ streaksChart <- function(startDate, endDate) {
 expected_move_rectangles <- unbreached_moves %>% select(week_start, expected_high, expected_low)
 unexpected_move_rectangles <- breached_moves %>% select(week_start, expected_high, expected_low)
 
-ggplot() +
-  theme_minimal() +
-  geom_rect(
-    data = expected_move_rectangles,
-    aes(
-      xmin = week_start - 3,
-      xmax = week_start + 3,
-      ymin = expected_low,
-      ymax = expected_high),
-    inherit.aes=FALSE,
-    fill = gray,
-    alpha = .3
-  ) +
-  geom_candlestick(data = unbreached_moves,
-     aes(x = week_start, open = open,
-         high = high, low = low,
-         close = close, color_up = 'black',
-         color_down = 'black', fill_up = green,
-         fill_down = red, inherit.aes = FALSE)) +
-  geom_rect(
-    data = unexpected_move_rectangles,
-    aes(
-      xmin = week_start - 3,
-      xmax = week_start + 3,
-      ymin = expected_low,
-      ymax = expected_high),
-    inherit.aes=FALSE,
-    fill = orange,
-    alpha = .3, 
-  ) +
-  geom_candlestick(
+s_plot <- ggplot() +
+  theme_minimal()
+
+if (nrow(unbreached_moves) > 0) {
+s_plot <- s_plot + geom_candlestick(data = unbreached_moves,
+   aes(x = week_start, open = open,
+       high = high, low = low,
+       close = close, color_up = 'black',
+       color_down = 'black', fill_up = green,
+       fill_down = red, inherit.aes = FALSE
+   )
+  )
+}
+
+if (nrow(breached_moves) > 0) {
+s_plot <- s_plot + geom_candlestick(
     data = breached_moves,
     aes(x = week_start, open = open,
         high = high, low = low,
@@ -63,4 +48,38 @@ ggplot() +
         fill_down = red, inherit.aes = FALSE
     )
   )
+}
+
+  if (nrow(expected_move_rectangles) > 0) {
+    s_plot <- s_plot +
+      geom_rect(
+        data = expected_move_rectangles,
+        aes(
+          xmin = week_start - 3,
+          xmax = week_start + 3,
+          ymin = expected_low,
+          ymax = expected_high),
+        inherit.aes=FALSE,
+        fill = gray,
+        alpha = .3
+      )
+  }
+
+  if (nrow(unexpected_move_rectangles) > 0) {
+    print(nrow(unexpected_move_rectangles))
+    s_plot <- s_plot +
+      geom_rect(
+        data = unexpected_move_rectangles,
+        aes(
+          xmin = week_start - 3,
+          xmax = week_start + 3,
+          ymin = expected_low,
+          ymax = expected_high),
+        inherit.aes=FALSE,
+        fill = orange,
+        alpha = .3,
+      )
+  }
+
+  s_plot
 }
