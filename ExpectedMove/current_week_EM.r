@@ -2,11 +2,29 @@ pacman::p_load(tidyverse, lubridate)
 
 source('./expected_moves.R')
 
-if (!exists("margin_of_error")) {
-  margin_of_error <<- .002
-}
+# WeeklyExpectedMove <- setClass(
+#   "WeeklyExpectedMove",
+# 
+#   slots = c(
+#     MarginOfError="numeric",
+#     ExpectedMoves="data.frame"
+#   ),
+# 
+#   prototype=list(
+#     ExpectedMoveExpansion=.002
+#   ),
+# 
+#   validity=function(object) {
+#     if (object@ExpectedMoveExpansion < 0) {
+#       return("Error: the expected move expansion must be greater than zero")
+#     }
+#   }
+# )
+# 
+# EM <- WeeklyExpectedMove(MarginOfError=margin_of_error)
 
-expected_moves <- expected_moves(margin_of_error)
+
+expected_moves <- get_expected_moves(margin_of_error)
 
 current_week <- expected_moves %>% head(1)
 last_week <<- expected_moves %>% head(2)[-1,]

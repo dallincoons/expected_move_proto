@@ -1,12 +1,12 @@
 source('current_week_EM_chart.R', local = F)
-source('proximity_chart_generator.r', local = F)
+source('current_week_EM.r', local = F)
 
 pacman::p_load(tidyverse)
 
 get_margin_of_error <- function(input) {
   
   if (input$margin_of_error == '') {
-    return(0.2)
+    return(margin_of_error / 100)
   }
   
   return(as.numeric(input$margin_of_error) / 100)  

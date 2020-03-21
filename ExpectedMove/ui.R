@@ -107,20 +107,20 @@ ui <- fluidPage(
                  plotOutput("streaksChart")
                )
              )
-    )
+    ),
     
-    # tabPanel("Filters", fluid = TRUE, 
-    #   h2("Filters"),
-    #   
-    #   selectInput("day_filter", "Choose a day:",
-    #       list("Monday" = "mon", "Tuesday" = "tue", "Wednesday" = "wed", "Thursday" = "thu", "Friday" = "fri")
-    #   ),
-    #   
-    #   selectInput("sd_direction_filter", "Direction breached EM",
-    #       list("Up" = "up", "Down" = "down")
-    #   ),
-    #   
-    #   actionButton("filter", "Go", icon("rocket"))
-    # )
+    tabPanel("Filters", fluid = TRUE,
+      h2("Filters"),
+
+      selectInput("day_filter", "Choose a day:",
+          list("Monday" = "mon", "Tuesday" = "tue", "Wednesday" = "wed", "Thursday" = "thu", "Friday" = "fri")
+      ),
+
+      selectInput("sd_direction_filter", "Direction breached EM",
+          list("Up" = "up", "Down" = "down")
+      ),
+
+      actionButton("filter", "Go", icon("rocket"))
+    )
   )
 )

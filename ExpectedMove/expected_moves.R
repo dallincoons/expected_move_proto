@@ -1,6 +1,6 @@
 pacman::p_load(tidyverse, lubridate)
 
-expected_moves <- function(margin_of_error = .002) {
+get_expected_moves <- function(margin_of_error = .002) {
   
   expected_moves <- read_csv('./expected_moves.csv') %>% 
     mutate(week_start = mdy(week_start)) %>% 

@@ -12,7 +12,7 @@ gray<-'#78727A'
 
 streaksChart <- function(startDate, endDate) {
   
-  expectedmoves <- expected_moves(margin_of_error) %>% 
+  expectedmoves <- get_expected_moves(margin_of_error) %>% 
     filter(week_start >= startDate, week_start <= endDate)
 
   breached_moves <- expectedmoves %>%
