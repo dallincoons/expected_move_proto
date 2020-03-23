@@ -1,0 +1,1 @@
+margin_of_error <<- 0.002

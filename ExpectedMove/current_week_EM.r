@@ -140,7 +140,7 @@ get_breached_count <- function (start_date, end_date) {
   return(sapply(split, nrow))
 }
 
-get_temporarily_breached_count <- function (start_date, end_date, margin_of_error = .002) {
+get_temporarily_breached_count <- function (start_date, end_date, EMexpansion = .002) {
   result <- expected_moves %>% 
     filter(week_start >= start_date) %>% 
     filter(week_end <= end_date)

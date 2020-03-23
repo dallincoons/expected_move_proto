@@ -1,5 +1,6 @@
 source('current_week_EM_chart.R', local = F)
 source('current_week_EM.r', local = F)
+source('filtered_stats.R', local = F)
 
 pacman::p_load(tidyverse)
 
@@ -85,8 +86,16 @@ server <- function(input, output) {
   })
   
   observeEvent(input$submit_streaks, {
+    print('test')
     populateStreaks(input, output)
-  })
+  }, ignoreInit = FALSE, ignoreNULL = FALSE)
+  
+  # Filters #
+  
+  output$filter_results <- renderDataTable(getFilteredStats(filters(
+    weekday=as.numeric(input$weekday_filter),
+    direction_breached=as.character(input$sd_direction_filter)
+  )))
 }
 
 

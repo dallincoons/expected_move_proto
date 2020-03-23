@@ -112,13 +112,15 @@ ui <- fluidPage(
     tabPanel("Filters", fluid = TRUE,
       h2("Filters"),
 
-      selectInput("day_filter", "Choose a day:",
-          list("Monday" = "mon", "Tuesday" = "tue", "Wednesday" = "wed", "Thursday" = "thu", "Friday" = "fri")
+      selectInput("weekday_filter", "Choose a day:",
+          list("Monday" = 1, "Tuesday" = 2, "Wednesday" = 3, "Thursday" = 4, "Friday" = 5)
       ),
 
       selectInput("sd_direction_filter", "Direction breached EM",
           list("Up" = "up", "Down" = "down")
       ),
+      
+      dataTableOutput('filter_results'),
 
       actionButton("filter", "Go", icon("rocket"))
     )
