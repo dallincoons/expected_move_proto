@@ -50,8 +50,6 @@ setMethod(f="getDirectionBreached", signature=c("filters"), definition=function(
 })
 
 getFilteredStats <- function(filters) {
-  print(getWeekday(filters))
-  print(getDirectionBreached(filters))
   
   results <- spy %>% 
     filter(weekday == getWeekday(filters))
@@ -68,7 +66,7 @@ getFilteredStats <- function(filters) {
       filter(Close < expected_low)
   }
   
-  return(expected_moves %>% filter(n %in% results$n) %>% select(c(-n)))
+  return(expected_moves %>% filter(n %in% results$n) %>% select(c(week_start, week_end, open, high, low, close, expected_high, expected_low, breached, t_breached)))
 }
 
 

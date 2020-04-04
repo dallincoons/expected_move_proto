@@ -51,6 +51,23 @@ populateStreaks <- function(input, output) {
   })
 }
 
+populateFilters <- function(input, output) {
+  filtered_results <- getFilteredStats(filters(
+    weekday=as.numeric(input$weekday_filter),
+    direction_breached=as.character(input$sd_direction_filter)
+  ))
+  
+  output$weeks_closed_inside <- renderText({
+    return(filtered_results %>% filter(t_breached == T) %>% nrow())
+  })
+  
+  output$weeks_closed_outside <- renderText({
+    return(filtered_results %>% filter(breached == T) %>% nrow())
+  })
+  
+  output$filter_results <- renderDataTable(filtered_results) 
+}
+
 server <- function(input, output) {
   
   output$expectedMove <- renderPlot({
@@ -86,16 +103,14 @@ server <- function(input, output) {
   })
   
   observeEvent(input$submit_streaks, {
-    print('test')
     populateStreaks(input, output)
   }, ignoreInit = FALSE, ignoreNULL = FALSE)
   
   # Filters #
   
-  output$filter_results <- renderDataTable(getFilteredStats(filters(
-    weekday=as.numeric(input$weekday_filter),
-    direction_breached=as.character(input$sd_direction_filter)
-  )))
+  observeEvent(input$run_filter, {
+    populateFilters(input, output)
+  })
 }
 
 

@@ -94,10 +94,7 @@ ui <- fluidPage(
                          ),
                          style="line-height: 1"
                        )
-                    ),
-                 fluidRow(
-                   
-                   )
+                    )
                  )
                )
              ),
@@ -120,9 +117,26 @@ ui <- fluidPage(
           list("Up" = "up", "Down" = "down")
       ),
       
+      fluidRow(
+        column(3,
+           span('Weeks closed inside', style="font-weight: 900"),
+           span(
+             textOutput("weeks_closed_inside")
+             , style = "font-size:1.5em; font-weight: 900"
+           )
+        ),
+        column(3,
+               span('Weeks closed outside', style="font-weight: 900"),
+               span(
+                 textOutput("weeks_closed_outside")
+                 , style = "font-size:1.5em; font-weight: 900"
+               )
+        )
+      ),
+      
       dataTableOutput('filter_results'),
 
-      actionButton("filter", "Go", icon("rocket"))
+      actionButton("run_filter", "Go", icon("rocket"))
     )
   )
 )
