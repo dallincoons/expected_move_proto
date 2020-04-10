@@ -1,3 +1,4 @@
+.env
 rsconnect/
 .DS_Store
 .Rproj.user/
