@@ -16,5 +16,6 @@ spy %>%
                        fill_down = red)) +
     geom_hline(yintercept = current_week$expected_high) +
     geom_hline(yintercept = current_week$expected_low) +
+    geom_hline(yintercept = last_week$close, color = 'red') +
     ylab("Stock price for SPY")
 }

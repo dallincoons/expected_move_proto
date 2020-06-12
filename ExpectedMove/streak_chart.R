@@ -25,7 +25,8 @@ expected_move_rectangles <- unbreached_moves %>% select(week_start, expected_hig
 unexpected_move_rectangles <- breached_moves %>% select(week_start, expected_high, expected_low)
 
 s_plot <- ggplot() +
-  theme_minimal()
+  theme_minimal() +
+  theme(axis.title.x=element_blank())
 
 if (nrow(unbreached_moves) > 0) {
 s_plot <- s_plot + geom_candlestick(data = unbreached_moves,
